@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,19 @@ namespace herramienta
 
                 Tip: for formatting Ctrl + K, а затем Ctrl + D.
         */
-        const int WINDOW_MAX_WEIGHT = 150; // X
-        const int WINDOW_MAX_HEIGHT = 40; // Y
+        
+        const int WINDOW_MAX_HEIGHT = 30; // Y base frame 
+        const int WINDOW_MAX_WEIGHT = 150; // X base frame 
+        
+        const int WINDOW_1_HEIGHT = WINDOW_MAX_HEIGHT/2 - 1; // Y       
+        const int WINDOW_1_WEIGHT = WINDOW_MAX_WEIGHT/2 - 1; // X
+
+        const int WINDOW_2_HEIGHT = WINDOW_MAX_HEIGHT/2 - 1; // Y
+        const int WINDOW_2_WEIGHT = WINDOW_MAX_WEIGHT/2 - 1; // X
+
+
+      
+
         static void Main(string[] args)
         {
             ConfigureConsole("herramienta");
@@ -31,8 +43,24 @@ namespace herramienta
 
             char[,] cWind1 = new char [dimY, dimX];
             ArrayFill_2(cWind1 , dimY, dimX);
+
+            ArrayWin2(cWind1, dimY, dimX, 1, 1, WINDOW_1_HEIGHT - 1 , WINDOW_1_WEIGHT - 1);
+            ArrayWin2(cWind1, dimY, dimX,  WINDOW_1_HEIGHT + 1, WINDOW_1_WEIGHT + 1 , WINDOW_2_HEIGHT - 2, WINDOW_2_WEIGHT - 2);
+
+            Console.WriteLine("Drawing now ....");
+            Console.ReadKey();            Console.Clear();
             ArrayDisplay2D(cWind1);
 
+            //char[,] cWind2 = new char[WINDOW_1_HEIGHT, WINDOW_1_WEIGHT];
+            // char[,] cWind3 = new char[WINDOW_1_HEIGHT, WINDOW_2_WEIGHT];
+
+
+            //ArrayDisplay2D(cWind1);
+
+            ArrayWin2 (cWind1  , dimY , dimX, 1,  1 , 9 , 15);
+             ArrayDisplay2D(cWind1);
+
+             
             int Ans = 1; // for answear 1 - yes , 0- no
             // block executive
             // Get begin data and calculet size dimention 
@@ -53,15 +81,10 @@ namespace herramienta
             }
 
             */
-
-
-
             Console.ReadKey();
         }
 
-
         // under
-
         static string GetStrFromCons(string strQuestion, string strByDef)
         {
             string strResult;
@@ -121,8 +144,6 @@ namespace herramienta
             }
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Clear();
-
-
 
         }
 
@@ -199,37 +220,37 @@ namespace herramienta
             // border
             {
 
-                for (int rowCurr = 0; rowCurr < dimY; rowCurr++)
+                for (int dimY1 = 0; dimY1 < dimY; dimY1++)
                 {
 
                     //1 line: Set duble horizot line
-                    if (rowCurr == 0)
+                    if (dimY1 == 0)
                     {
                         for (int i = 0; i < dimX; i++)
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = '\u2564';  // ╤
+                                arrEmpty[dimY1, i] = '\u2564';  // ╤
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = cBordrHorDouble;
+                                arrEmpty[dimY1, i] = cBordrHorDouble;
                             }
 
                         }
                     }
                     // last line: Set duble horizot line
-                    else if (rowCurr == (dimY - 1))
+                    else if (dimY1 == (dimY - 1))
                     {
                         for (int i = 0; i < dimX; i++)
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = '\u2567'; // ╧
+                                arrEmpty[dimY1, i] = '\u2567'; // ╧
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = cBordrHorDouble;
+                                arrEmpty[dimY1, i] = cBordrHorDouble;
                             }
 
                         }
@@ -241,18 +262,18 @@ namespace herramienta
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = cBordrCrossL; // = '\u253c'; // ┼ 
+                                arrEmpty[dimY1, i] = cBordrCrossL; // = '\u253c'; // ┼ 
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = '\u2500';// ─ 	Alt 196 	Граница легкая горизонтальная    
+                                arrEmpty[dimY1, i] = '\u2500';// ─ 	Alt 196 	Граница легкая горизонтальная    
                             }
                         }
                     }
 
                     // Left and right border
-                    arrEmpty[rowCurr, 0] = cBordrVerDouble;
-                    arrEmpty[rowCurr, dimX - 1] = cBordrVerDouble;
+                    arrEmpty[dimY1, 0] = cBordrVerDouble;
+                    arrEmpty[dimY1, dimX - 1] = cBordrVerDouble;
 
                 }
 
@@ -264,7 +285,6 @@ namespace herramienta
                 // line last 
                 arrEmpty[dimY - 1, 0] = cornLeftBottom2l;
                 arrEmpty[dimY - 1, dimX - 1] = cornRightBottom2l;
-
             }
 
             //return
@@ -319,37 +339,37 @@ namespace herramienta
             // border
             {
 
-                for (int rowCurr = 0; rowCurr < dimY; rowCurr++)
+                for (int dimY1 = 0; dimY1 < dimY; dimY1++)
                 {
 
                     //1 line: Set duble horizot line
-                    if (rowCurr == 0)
+                    if (dimY1 == 0)
                     {
                         for (int i = 0; i < dimX; i++)
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = '\u2564';  // ╤
+                                arrEmpty[dimY1, i] = '\u2564';  // ╤
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = cBordrHorDouble;
+                                arrEmpty[dimY1, i] = cBordrHorDouble;
                             }
 
                         }
                     }
                     // last line: Set duble horizot line
-                    else if (rowCurr == (dimY - 1))
+                    else if (dimY1 == (dimY - 1))
                     {
                         for (int i = 0; i < dimX; i++)
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = '\u2567'; // ╧
+                                arrEmpty[dimY1, i] = '\u2567'; // ╧
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = cBordrHorDouble;
+                                arrEmpty[dimY1, i] = cBordrHorDouble;
                             }
 
                         }
@@ -361,18 +381,18 @@ namespace herramienta
                         {
                             if (i % 2 == 0)
                             {
-                                arrEmpty[rowCurr, i] = cBordrCrossL; // = '\u253c'; // ┼ 
+                                arrEmpty[dimY1, i] = cBordrCrossL; // = '\u253c'; // ┼ 
                             }
                             else
                             {
-                                arrEmpty[rowCurr, i] = '\u2500';// ─ 	Alt 196 	Граница легкая горизонтальная    
+                                arrEmpty[dimY1, i] = '\u2500';// ─ 	Alt 196 	Граница легкая горизонтальная    
                             }
                         }
                     }
 
                     // Left and right border
-                    arrEmpty[rowCurr, 0] = cBordrVerDouble;
-                    arrEmpty[rowCurr, dimX - 1] = cBordrVerDouble;
+                    arrEmpty[dimY1, 0] = cBordrVerDouble;
+                    arrEmpty[dimY1, dimX - 1] = cBordrVerDouble;
 
                 }
 
@@ -391,6 +411,103 @@ namespace herramienta
             return arrEmpty;
             Console.ReadKey();
         }
+
+
+
+
+
+
+      static Array ArrayWin2(char[,] arrEmpty 
+                            , int dimY1, int dimX1  // dimension base frame
+                            , int dimY2, int dimX2  // begin coordinatos window
+                            , int dimY3, int dimX3) // end coordinatos window
+        /*
+
+        */
+        {
+            // StringBuilder sbLine1 = new StringBuilder();
+
+            char cSpace = '\u0020';          // https://unicode.bootstrap-4.ru/alt-codes/
+            char cornLeftTop2l = '\u2554';          // ╔    Граница двойная вниз и направо
+            char cornRightTop2l = '\u2557';          // ╗    Граница двойная вниз и налево
+            char cornLeftBottom2l = '\u255A';          // ╚    Граница двойная вверх и направо
+            char cornRightBottom2l = '\u255D';          // ╝    Граница двойная вверх и налево
+
+            char cBordrHorDouble = '\u2550'; // ═ 	Alt 205     Граница двойная горизонтальная Double horizontal border
+            char cBordrVerDouble = '\u2551'; // ║ 	Alt 186 	Граница двойная вертикальная
+            char cBordrTmp12 = '\u0020';
+            char cBordrTmp13 = '\u0020';
+            char cBordrTmp14 = '\u2554'; // ╟ 	Alt 199 	Граница вертикальная двойная и одинарная направо
+            char cBordrTmp15 = '\u2557'; // ╢ 	Alt 182 	Граница вертикальная двойная и одинарная налево
+            char cBordrTmp16 = '\u0020';
+            char cBordrTmp17 = '\u2564'; // ╤ 	Alt 209 	Граница одинарная вниз и двойная горизонтально
+            char cBordrTmp18 = '\u2567'; // ╧ 	Alt 207 	Граница одинарная вверх и двойная горизонтально
+
+            char cBordrVerLight = '\u2502'; //  Граница легкая вертикальная 
+            char cBordrHorLight = '\u2500'; //  Граница легкая горизонт
+            char cBordrCrossL = '\u253c'; // ┼ 	Alt 197 	Граница легкая вертикальная и горизонтальная
+            
+
+            // fill all elements space symbols
+            Console.WriteLine("  f");
+            Console.ReadKey();
+
+            
+            // Console.WriteLine(Convert.ToString('\u2550'));
+            // set check max dimantions
+            // border Win1 in frame 
+            {
+
+                for (int currY = dimY2 ;   currY <dimY3 ;  currY ++)
+                {
+                    //1 line: Set duble horizot line
+                    if (  currY  == dimY2)
+                    {
+                        for (int  currX  = dimX2;  currX  < dimX3;  currX ++)
+                        {
+                                arrEmpty[ currY , currX ] = cBordrHorLight;  // '\u2574'  '\u2576'
+                        }
+                    }
+                    // last line: Set duble horizot line
+                    else if (  currY == (dimY3 - 1))
+                    {
+                        for (int  currX = dimX2;  currX < dimX3;  currX++)
+                        {
+                            if (currX % 2 == 0)
+                            {
+                                arrEmpty[ currY, currX ] = '\u2574';   // ─ 	Alt 196  '\u2567'; // ╧
+                            }
+                            else
+                            {
+                                arrEmpty[ currY, currX ] = '\u2576';// ─ 	Alt 196  //cBordrHorDouble;
+                            }
+
+                        }
+                    }
+					
+
+                    // Left and right border
+                    arrEmpty[ currY , dimX2 ] = cBordrVerLight;
+                    arrEmpty[ currY , dimX3 ] = cBordrVerLight;
+
+                }
+
+            }
+            // corners 
+            { // line 1
+                arrEmpty[ dimY2, dimX2 ] = '\u250c';
+                arrEmpty[ dimY2, dimX3 ] = '\u2510';
+                // line last 
+                arrEmpty[dimY3 , dimX2] = '\u2514';
+                arrEmpty[dimY3 , dimX3] = '\u2574';
+
+            }
+
+            //return
+            return arrEmpty;
+            Console.ReadKey();
+        }
+
 
 
 
@@ -444,21 +561,21 @@ namespace herramienta
             // border
             {
 
-                for (int rowCurr = 0; rowCurr < dimY; rowCurr++)
+                for (int dimY1 = 0; dimY1 < dimY; dimY1++)
                 {
 
                     //1 line: Set duble horizot line // last line: Set duble horizot line
-                    if (rowCurr == 0 | (rowCurr == (dimY - 1)))
+                    if (dimY1 == 0 | (dimY1 == (dimY - 1)))
                     {
                         for (int i = 0; i < dimX; i++)
-                        { arrEmpty[rowCurr, i] = cBordrHorDouble;                     
+                        { arrEmpty[dimY1, i] = cBordrHorDouble;                     
 
                         }
                     }
 
                     // Left and right border
-                    arrEmpty[rowCurr, 0] = cBordrVerDouble;
-                    arrEmpty[rowCurr, dimX - 1] = cBordrVerDouble;
+                    arrEmpty[dimY1, 0] = cBordrVerDouble;
+                    arrEmpty[dimY1, dimX - 1] = cBordrVerDouble;
 
                 }
 
@@ -505,6 +622,15 @@ namespace herramienta
 
 
         }
+
+
+
+
+
+
+
+
+
 
         static void tempTest()
         {
