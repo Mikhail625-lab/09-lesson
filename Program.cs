@@ -11,17 +11,17 @@ namespace herramienta
     class Program
     {
         /*
-            ver: 0.7a date: 2021.04.30
+            ver: 0.7b date: 2021.05.10
             autor: Mikhail625@protonmail.com
 
-                Tip: for formatting Ctrl + K, а затем Ctrl + D.
+            Tip: for formatting Ctrl + K, а затем Ctrl + D.
         */
 
-        static char cSpace = '\u0020';          // https://unicode.bootstrap-4.ru/alt-codes/
-        static char cornLeftTop2l = '\u2554';          // ╔    Граница двойная вниз и направо
+        static char cSpace  = '\u0020';          // https://unicode.bootstrap-4.ru/alt-codes/
+        static char cornLeftTop2l  = '\u2554';          // ╔    Граница двойная вниз и направо
         static char cornRightTop2l = '\u2557';          // ╗    Граница двойная вниз и налево
-        static char cornLeftBottom2l = '\u255A';          // ╚    Граница двойная вверх и направо
-        static char cornRightBottom2l = '\u255D';          // ╝    Граница двойная вверх и налево
+        static char cornLeftBottom2l  = '\u255A';       // ╚    Граница двойная вверх и направо
+        static char cornRightBottom2l = '\u255D';       // ╝    Граница двойная вверх и налево
  
         static char cBordrHorDouble = '\u2550'; // ═ 	Alt 205     Граница двойная горизонтальная Double horizontal border
         static char cBordrVerDouble = '\u2551'; // ║ 	Alt 186 	Граница двойная вертикальная
@@ -31,15 +31,18 @@ namespace herramienta
         static char cBordrTmp13 = '\u0020';
         static char cBordrTmp14 = '\u2554'; // ╟ 	Alt 199 	Граница вертикальная двойная и одинарная направо
         static char cBordrTmp15 = '\u2557'; // ╢ 	Alt 182 	Граница вертикальная двойная и одинарная налево
-        static char cBordrTmp16 = '\u0020';
+
+        static char cBordrTmp16 = '\u2502'; // │ Граница легкая вертикальная
+
+
         static char cBordrTmp17 = '\u2564'; // ╤ 	Alt 209 	Граница одинарная вниз и двойная горизонтально
         static char cBordrTmp18 = '\u2567'; // ╧ 	Alt 207 	Граница одинарная вверх и двойная горизонтально
  
-        static char cBordrVerLight = '\u2551'; //  Граница легкая вертикальная 
-        static char cBordrHorLight = '\u2500'; //  Граница легкая горизонт
+        static char cBordrVerLight = '\u2502'; //  Граница легкая вертикальная 
+        static char cBordrHorLight = '\u2500'; // ─ Граница легкая горизональная 
         static char cBordrCrossL   = '\u253c'; // ┼ 	Alt 197 	Граница легкая вертикальная и горизонтальная
 
-        const int WINDOW_MAX_HEIGHT = 30;     // Y base frame 
+        const int WINDOW_MAX_HEIGHT = 40;     // Y base frame 
         const int WINDOW_MAX_WIDTH  = 151;    // X base frame 
         
         const int WINDOW_1_HEIGHT = WINDOW_MAX_HEIGHT/2 - 1; // Y       
@@ -63,32 +66,23 @@ namespace herramienta
             int dimY = WINDOW_MAX_HEIGHT - 1; // высота
             int dimX = WINDOW_MAX_WIDTH - 1;  // ширина
 
-            char[,] cWind1 = new char [dimY-5, dimX];
-            ArrayBaseFrame(cWind1 , dimY , dimX , "File Manager" );
-            //ArrayFill_2(cWind1 , dimY, dimX);
-            ArrayDisplay2D(cWind1);
+            char[,] cWind1 = new char [dimY, dimX];
+            ArrayBaseFrame(cWind1 , dimY , dimX , " Herramienta file manager ");
 
-            //ArrayWin2(cWind1, dimY, dimX, 1, 1, WINDOW_1_HEIGHT - 1 , WINDOW_1_WIDTH - 1);
-            ArrayWin2(cWind1, dimY, dimX, 3, 3, 5, 10);
+            ArrayWin2(cWind1, dimY, dimX, 1, 1, dimY/3, dimX/3);
+            ArrayWin2(cWind1, dimY, dimX, 1  , (dimX / 3) , dimY / 3, dimX / 3);
+
             //ArrayWin2(cWind1, dimY, dimX,  WINDOW_1_HEIGHT + 1, WINDOW_1_WIDTH + 1 , WINDOW_2_HEIGHT - 2, WINDOW_2_WIDTH - 2);
             ArrayDisplay2D(cWind1);
 
-           //
-           //
-           //
            //ArrayDisplay2D(cWind1);
 
             //char[,] cWind2 = new char[WINDOW_1_HEIGHT, WINDOW_1_WIDTH];
             // char[,] cWind3 = new char[WINDOW_1_HEIGHT, WINDOW_2_WIDTH];
 
 
-            //ArrayDisplay2D(cWind1);
-
-            ArrayWin2 (cWind1  , dimY , dimX, 1,  1 , 9 , 15);
-            ArrayDisplay2D(cWind1);
-
              
-            int Ans = 1; // for answear 1 - yes , 0- no
+            // int Ans = 1; // for answear 1 - yes , 0- no
             // block executive
             // Get begin data and calculet size dimention 
             {
@@ -108,6 +102,7 @@ namespace herramienta
             }
 
             */
+            Console.WriteLine("That all");
             Console.ReadKey();
         }
 
@@ -120,34 +115,27 @@ namespace herramienta
             // Формирование массива основной внешней рамки (родительского окна)
             // Двойный границы 
 
-            // ранг (число измерений) 
-            //Console.WriteLine(arrEmpty.Rank);
 
+            // Console.WriteLine("  Now generate base frame with double line-board and space ");
+            // Console.ReadKey();
 
+            // detect rank array // ранг (число измерений) 
+            int iArrRank = arrEmpty.Rank;
+            int[] arrRank = new int[iArrRank];
+            // check verify 
+            // ArrayDisplay2D(arrEmpty);
 
-
-            // fill all elements space symbols
-            Console.WriteLine("  Now generate base frame with double line-board and space ");
-            Console.ReadKey();
-
-
-
-            
-                for (int currY = 0; currY < dimY; currY++)
+            // fill all elements space symbols            
+            for (int currY = 0; currY < dimY; currY++)
                 {
                     for (int currX = 0; currX < dimX; currX++)
                     {
                     arrEmpty[currY, currX] =  cSpace;
                     }
                 }
-                // check verify 
-                // ArrayDisplay2D(arrEmpty);
-            
-            // Console.WriteLine(Convert.ToString('\u2550'));
 
             // border
             {
-
                 for (int currY = 0; currY < dimY; currY++)
                 {
 
@@ -183,8 +171,8 @@ namespace herramienta
                     arrEmpty[currY, dimX - 1] = cBordrVerDouble;
 
                 }
-
             }
+
             // corners 
             { // line 1
                 arrEmpty[0, 0] = cornLeftTop2l;
@@ -494,13 +482,9 @@ namespace herramienta
                     {
                         for (int  currX = dimX2;  currX < dimX3;  currX++)
                         {
-
                             arrEmpty[currY, currX] = cBordrHorLight;
-
-
                         }
                     }
-					
 
                     // Left and right border
                     arrEmpty[ currY , dimX2 ] = cBordrVerLight;
@@ -521,7 +505,7 @@ namespace herramienta
 
             //return
             return arrEmpty;
-            Console.ReadKey();
+           
         }
 
         static void ArrayDisplay2D(char[,] arr)
@@ -628,10 +612,10 @@ namespace herramienta
             //Если значение TreatControlCAsInput свойства равно false и нажата клавиша CTRL +C, нажатые клавиши не сохраняются во входном буфере, а операционная система завершает выполняющийся процесс. Это значение по умолчанию.
             Console.TreatControlCAsInput = true;
             Console.SetWindowSize(2, 4);
-            Console.BufferWidth = WINDOW_MAX_WIDTH*2; // ширина
-            Console.BufferHeight = WINDOW_MAX_HEIGHT; // высота
+            Console.BufferWidth  = WINDOW_MAX_WIDTH  + 3 ; // ширина
+            Console.BufferHeight = WINDOW_MAX_HEIGHT + 5 ; // высота
 
-            Console.SetWindowSize(WINDOW_MAX_WIDTH + 3 , WINDOW_MAX_HEIGHT + 3);
+            Console.SetWindowSize(WINDOW_MAX_WIDTH + 3 , WINDOW_MAX_HEIGHT + 5);
             //Console.WriteLine("now output 150 *");
             //Console.ReadKey();
 
