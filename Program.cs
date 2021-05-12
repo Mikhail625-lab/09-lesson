@@ -68,6 +68,7 @@ namespace herramienta
         {
             ConfigureConsole("herramienta");
             Task001();
+            //tt();
         }
 
         static void Task001()
@@ -85,7 +86,7 @@ namespace herramienta
             startX1 = 1;
             ArrayBaseFrame(cWind1, dimY, dimX, " Herramienta file manager ");
 
-            ArrayWin2(cWind1, dimY, dimX, startY1, startX1, startY1 + dimY / 2, startX1 + dimX / 2);
+            // ArrayWin2(cWind1, dimY, dimX, startY1, startX1, (startY1 + dimY / 2), (startX1 + dimX / 2));
             startY1 = startY1 + dimY / 2 + 1;
             startX1 = startX1 + dimX / 2 + 1;
             //ArrayWin2(cWind1, dimY, dimX, startY1, startX1, startY1, startX1 + dimX / 2);
@@ -148,6 +149,11 @@ namespace herramienta
             {
                 for (int currX = 0; currX < dimX; currX++)
                 {
+
+                    if (currX>(arrEmpty[currY , ].Length - 15 )  &
+                        currX<(arrEmpty.Length - 2)        )
+                    { Console.WriteLine(" arrEmpty[{0} , {1}] ={3}", currY, currX , arrEmpty[currY, currX].ToString() ); }
+                    
                     arrEmpty[currY, currX] = cSpace;
                 }
             }
@@ -195,8 +201,8 @@ namespace herramienta
                 arrEmpty[0, 0] = cornDownRight2l;
                 arrEmpty[0, dimX - 1] = cornDownLeft2l;
                 // line last '\u255A', '\u2550'
-                arrEmpty[dimY , 0] = cornUpRight1l;
-                arrEmpty[dimY , dimX - 1] = cornUpLeft1l; ;
+                arrEmpty[dimY -1, 0] = cornUpRight2l;
+                arrEmpty[dimY -1, dimX - 1] = cornUpLeft2l; 
             }
 
             // type headet banner window
@@ -378,7 +384,7 @@ namespace herramienta
             // corners 
             {   // line 1
                 arrFrame[windY1, windX1] = cornDownRight1l;//  = '\u250C';  //  ┌   '\u250E' Alt 218 Граница легкая вниз в легкая направо
-                arrFrame[windY1, windX2] = cornDownLeft1l;//  = '\u2510';  //  ┐ 	   Alt 191 	Граница легкая вниз и легкая налево
+                arrFrame[windY1, windX2] = cornDownLeft1l; //  = '\u2510';  //  ┐ 	   Alt 191 	Граница легкая вниз и легкая налево
                 // line last 
                 arrFrame[windY2, windX1] = cornUpRight1l; // = '\u2514';  //  └     Alt 192 	Граница легкая вверх и легкая направо
                 arrFrame[windY2, windX2] = cornUpLeft1l;  //  = '\u2518';  //  ┘   '\u2518' Alt 217 Граница легкая вверх и легкая налево '\u255D';
@@ -465,11 +471,12 @@ namespace herramienta
             Console.Title = headerConsWindow;
             //Если значение TreatControlCAsInput свойства равно false и нажата клавиша CTRL +C, нажатые клавиши не сохраняются во входном буфере, а операционная система завершает выполняющийся процесс. Это значение по умолчанию.
             Console.TreatControlCAsInput = true;
-            Console.SetWindowSize(2, 4);
-            Console.BufferWidth = WINDOW_MAX_WIDTH + 3; // ширина
-            Console.BufferHeight = WINDOW_MAX_HEIGHT + 5; // высота
+            
+            Console.BufferWidth  = WINDOW_MAX_WIDTH  + 23; // ширина
+            Console.BufferHeight = WINDOW_MAX_HEIGHT + 25; // высота
+            Console.SetWindowSize(40, 40);
 
-            Console.SetWindowSize(WINDOW_MAX_WIDTH + 3, WINDOW_MAX_HEIGHT + 5);
+         // Console.SetWindowSize(WINDOW_MAX_WIDTH + 3, WINDOW_MAX_HEIGHT + 5);
             //Console.WriteLine("now output 150 *");
             //Console.ReadKey();
 
@@ -555,8 +562,35 @@ namespace herramienta
 
         // for temp / tests  and expirience 
 
-        static void tempTest()
+        static void tt() //tempTest
         {
+            int iCount1 = 1;
+            int dimX    = 9;
+
+            int[] arrDcml = new int[dimX];
+
+            for  (int i=0;  i < arrDcml.Length; i++)
+            {
+             arrDcml[i] = iCount1;
+             iCount1++;
+            }
+
+            foreach(int e1 in arrDcml)
+            {
+                Console.WriteLine(" ={0}", e1.ToString());
+
+            }
+
+
+            arrDcml[arrDcml.Length - 1] = 11;
+
+
+            Console.WriteLine(Convert.ToString('\u255A'));
+            Console.WriteLine(Convert.ToString('\u255D'));
+
+
+
+
             int count1 = 0;
             bool blSw = false;
 
