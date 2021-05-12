@@ -20,6 +20,12 @@ namespace herramienta
         // https://unicode.org/charts/nameslist/n_2500.html
         // https://unicode.bootstrap-4.ru/alt-codes/
         static char cSpace = '\u0020';
+
+
+        static char cHorHeavy = '\u2501';  //	 ━ 	Box Drawings Heavy Horizontal
+        static char cVerHeavy = '\u2503';  //	 ┃ 	Box Drawings Heavy Vertical
+
+
         static char cBordrHorDouble = '\u2550'; // ═ 	Alt 205     Граница двойная горизонтальная Double horizontal border       
         static char cBordrVerDouble = '\u2551'; //  ║ 	Alt 186 	Граница двойная вертикальная               
 
@@ -74,8 +80,6 @@ namespace herramienta
             int startX1;
             int startY1;
 
-
-
             char[,] cWind1 = new char[dimY, dimX];
             startY1 = 1;
             startX1 = 1;
@@ -84,7 +88,7 @@ namespace herramienta
             ArrayWin2(cWind1, dimY, dimX, startY1, startX1, startY1 + dimY / 2, startX1 + dimX / 2);
             startY1 = startY1 + dimY / 2 + 1;
             startX1 = startX1 + dimX / 2 + 1;
-            ArrayWin2(cWind1, dimY, dimX, startY1, startX1, startY1 + dimY / 2, startX1 + dimX / 2);
+            //ArrayWin2(cWind1, dimY, dimX, startY1, startX1, startY1, startX1 + dimX / 2);
 
             //ArrayWin2(cWind1, dimY, dimX,  WINDOW_1_HEIGHT + 1, WINDOW_1_WIDTH + 1 , WINDOW_2_HEIGHT - 2, WINDOW_2_WIDTH - 2);
             ArrayDisplay2D(cWind1);
@@ -159,7 +163,6 @@ namespace herramienta
                         for (int currX = 0; currX < dimX; currX++)
                         {
                             arrEmpty[currY, currX] = cBordrHorDouble;
-
                         }
                     }
                     // last line: Set duble horizot line
@@ -192,8 +195,8 @@ namespace herramienta
                 arrEmpty[0, 0] = cornDownRight2l;
                 arrEmpty[0, dimX - 1] = cornDownLeft2l;
                 // line last '\u255A', '\u2550'
-                arrEmpty[dimY - 1, 0] = cornUpRight1l;
-                arrEmpty[dimY - 1, dimX - 1] = cornUpLeft1l; ;
+                arrEmpty[dimY , 0] = cornUpRight1l;
+                arrEmpty[dimY , dimX - 1] = cornUpLeft1l; ;
             }
 
             // type headet banner window
@@ -326,12 +329,12 @@ namespace herramienta
             Console.ReadKey();
         }
 
-        static Array ArrayWin2(char[,] arrEmpty
+        static Array ArrayWin2(char[,] arrFrame
                             , int dimY1, int dimX1  // dimension base frame
-                            , int windY1, int windX3  // initial coordinate value | begin coordinatos window
+                            , int windY1, int windX1  // initial coordinate value | begin coordinatos window
                             , int windY2, int windX2) // end coordinatos window
         /*
-
+          Fit window  to frame
         */
         {
             // StringBuilder sbLine1 = new StringBuilder();
@@ -340,56 +343,48 @@ namespace herramienta
 
             // Console.WriteLine(Convert.ToString('\u2550'));
             // set check max dimantions
-            if (dimY1 -2 <= windY1) { windY1 = dimY1 - 3; }
-            if (dimX1 -2 <= windX3) { windX3 = windX3 - 3; }
+            if (dimY1 - 2 <= windY1 ) { windY1 = dimY1 - 3 ; }
+            if (dimX1 - 2 <= windX2 ) { windX2 = dimX1 - 3 ; }
 
             if (dimY1 <= windY2) { windY2 = windY2 - 1; }
             if (dimX1 <= windX2) { windX2 = windX2 - 1; }
-
-
-
             // border Win1 in frame 
             {
-
-                for (int currY = dimY2; currY < windY2; currY++)
+                for (int currY = windY1; currY < windY2; currY++)
                 {
-                    //1 line: Set duble horizot line
-                    
-                    if (currY == dimY2)
+                    //1 line: Set  light horizot line
+                    if (currY == windY1)
                     {
-                        for (int currX = windX3; currX < windX2; currX++)
+                        for (int currX = windX1; currX < windX2; currX++)
                         {
-                            arrEmpty[currY, currX] = cBordrHorDouble;//cBordrHorLight;
+                            arrFrame[currY, currX] = cBordrHorLight;   //cBordrHorLight;
                         }
                     }
-                    // last line: Set duble horizot line
+                    // last line: Set  light  horizot line
                     else if (currY == (windY2 - 1))
                     {
-                        for (int currX = windX3; currX < windX2; currX++)
+                        for (int currX = windX1; currX < windX2; currX++)
                         {
-                            arrEmpty[currY, currX] = cBordrHorDouble;// cBordrHorLight;
+                            arrFrame[currY, currX] = cBordrHorLight;  // cBordrHorLight;
                         }
                     }
 
-                    // Left and right border
-                    arrEmpty[currY, windX3] = cBordrVerLight;
-                    arrEmpty[currY, windX2] = cBordrVerLight;
+                    // Left and right border  verticals line
+                    arrFrame[currY, windX2] = cBordrVerLight;
+                    arrFrame[currY, windX2] = cBordrVerLight;
 
                 }
-
             }
             // corners 
-            { // line 1
-                arrEmpty[dimY2, windX3] = '\u2554';
-                arrEmpty[dimY2, windX2] = '\u2557';
+            {   // line 1
+                arrFrame[windY1, windX1] = cornDownRight1l;//  = '\u250C';  //  ┌   '\u250E' Alt 218 Граница легкая вниз в легкая направо
+                arrFrame[windY1, windX2] = cornDownLeft1l;//  = '\u2510';  //  ┐ 	   Alt 191 	Граница легкая вниз и легкая налево
                 // line last 
-                arrEmpty[windY2, windX3] = '\u255A';
-                arrEmpty[windY2, windX2] = '\u255D';
-
+                arrFrame[windY2, windX1] = cornUpRight1l; // = '\u2514';  //  └     Alt 192 	Граница легкая вверх и легкая направо
+                arrFrame[windY2, windX2] = cornUpLeft1l;  //  = '\u2518';  //  ┘   '\u2518' Alt 217 Граница легкая вверх и легкая налево '\u255D';
             }
-
             //return
-            return arrEmpty;
+            return arrFrame;
 
         }
 
@@ -531,26 +526,18 @@ namespace herramienta
             return bSw;
         }
 
-
-
         // for cross-zero / reversi 
         static bool CheckVictory(char[,] arrField, int dimY, int dimX, int numSec)
         {
-
             // numSec - количество последовательности 
-
             bool bResult = false;
             return bResult;
-
-
         }
         static bool CheckDanger(char[,] arrField, int dimY, int dimX)
 
         {
             bool bResult = false;
             return bResult;
-
-
         }
         static bool CheckMoveCorrect(char[,] arrField, int dimY, int dimX)
 
