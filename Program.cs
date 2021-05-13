@@ -100,7 +100,6 @@ namespace herramienta
             // char[,] cWind3 = new char[WINDOW_1_HEIGHT, WINDOW_2_WIDTH];
 
 
-
             // int Ans = 1; // for answear 1 - yes , 0- no
             // block executive
             // Get begin data and calculet size dimention 
